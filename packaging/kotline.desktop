@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Kotline
+Comment=DXF floor plan to architectural section
+Exec=Kotline
+Icon=kotline
+Terminal=false
+Categories=Graphics;Engineering;

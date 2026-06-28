@@ -1,0 +1,53 @@
+dxf_path: sample-files/dxf/dxf-parser/floorplan.dxf
+
+units:
+  source: auto
+  source_override: cm
+  parameters: cm
+  output: cm
+
+section:
+  p0: [-420, -180]
+  p1: [-420, 300]
+  view_point: [-220, 80]
+
+layer_mapping:
+  walls: ["*A-WALL"]
+  openings: ["*A-OPENING"]
+  doors: ["*A-GARAGE-DOOR", "*A-OPENING"]
+  windows: ["*A-HEADER"]
+  slab: ["*S-SLAB"]
+  structure: ["*S-STEM-WALL", "*R-BEAM", "*S-FOOTER"]
+  fixtures: ["*A-CASE-1", "*A-FIXTURE"]
+  footprint: ["*A-FOOTPRINT"]
+  annotations: ["A-NOTE", "A-TEXT", "ANNTEXT", "A-DIMS-1", "View Port"]
+
+skip_entity_types:
+  - TEXT
+  - MTEXT
+  - DIMENSION
+  - LEADER
+  - HATCH
+  - VIEWPORT
+
+output_scale: "1:50"
+wall_height: 280
+storey_height: 300
+ceiling_height: 260
+slab_thickness: 20
+finished_floor_thickness: 5
+door_height: 210
+door_sill_height: 0
+door_frame_thickness: 5
+window_sill_height: 90
+window_head_height: 240
+window_frame_thickness: 5
+section_depth: 500
+snap_tolerance: 2
+intersection_tolerance: 0.5
+angle_tolerance: 2
+cut_lineweight: 0.5
+projection_lineweight: 0.18
+hatch_spacing: 10
+wall_pair_max_offset: 30
+wall_pair_min_offset: 5

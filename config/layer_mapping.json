@@ -1,0 +1,10 @@
+{
+  "walls": ["*A-WALL", "A-WALL", "WALL", "DUVAR"],
+  "doors": ["*A-DOOR", "*A-GARAGE-DOOR", "A-DOOR", "DOOR", "KAPI"],
+  "windows": ["*A-HEADER", "*A-WIND", "A-WIND", "WINDOW", "PENCERE"],
+  "openings": ["*A-OPENING", "A-OPENING"],
+  "columns": ["*A-COLS", "A-COLS", "COLUMN", "KOLON"],
+  "slab": ["*S-SLAB", "S-SLAB"],
+  "fixtures": ["*A-FURN", "*A-FIXTURE", "*A-CASE-1", "FURNITURE", "MOBILYA"],
+  "annotations": ["A-NOTE", "A-TEXT", "ANNTEXT", "A-DIMS-1", "TEXT", "DIM"]
+}

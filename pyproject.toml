@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kesit"
+version = "0.1.0"
+description = "Kotline — 2D DXF floor plan to 2D architectural section generator"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26",
+  "shapely>=2.0",
+  "pyyaml>=6.0",
+  "ezdxf>=1.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+desktop = ["customtkinter>=5.2", "pillow>=10.0"]
+build = ["pyinstaller>=6.0"]
+
+[project.scripts]
+kesit-poc = "kesit.cli.run_poc:main"
+kesit-section = "kesit.cli.run_section:main"
+kesit-inspect-dxf = "kesit.cli.inspect_dxf:main"
+kesit-gui = "kesit.ui.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kesit = ["locales/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
