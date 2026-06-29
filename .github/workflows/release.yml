@@ -44,7 +44,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libx11-6 libxcb1 libxext6 libxrender1 libgl1 libglib2.0-0
+          sudo apt-get install -y libx11-6 libxcb1 libxext6 libxrender1 libgl1 libglib2.0-0 libfuse2
 
       - name: Install appimagetool
         run: |
@@ -53,6 +53,8 @@ jobs:
           sudo mv /tmp/appimagetool /usr/local/bin/appimagetool
 
       - name: Build AppImage
+        env:
+          APPIMAGETOOL_EXTRACT_AND_RUN: "1"
         run: ./scripts/build_appimage.sh
 
       - name: Create portable tarball

@@ -58,6 +58,7 @@ X-AppImage-Version=${VERSION}
 EOF
 
 export ARCH=x86_64
+export APPIMAGETOOL_EXTRACT_AND_RUN="${APPIMAGETOOL_EXTRACT_AND_RUN:-1}"
 appimagetool "${APPDIR}" "${OUTPUT}"
 
 echo "AppImage complete: ${OUTPUT}"
