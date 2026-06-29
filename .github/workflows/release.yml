@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y
+
+      - name: Build Windows installer
+        shell: pwsh
+        run: .\scripts\build_windows_installer.ps1
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotline-windows
+          path: dist/installer/Kotline-Setup-*.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-6 libxcb1 libxext6 libxrender1 libgl1 libglib2.0-0
+
+      - name: Install appimagetool
+        run: |
+          wget -q -O /tmp/appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x /tmp/appimagetool
+          sudo mv /tmp/appimagetool /usr/local/bin/appimagetool
+
+      - name: Build AppImage
+        run: ./scripts/build_appimage.sh
+
+      - name: Create portable tarball
+        run: tar -czf dist/kotline-linux-x86_64.tar.gz -C dist Kotline
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotline-linux
+          path: |
+            dist/Kotline-x86_64.AppImage
+            dist/kotline-linux-x86_64.tar.gz
+
+  release:
+    needs: [build-windows, build-linux]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/kotline-windows/*
+            artifacts/kotline-linux/*
+          generate_release_notes: true

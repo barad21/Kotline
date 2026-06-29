@@ -10,6 +10,7 @@ from pathlib import Path
 import customtkinter as ctk
 
 from kesit.app.config_io import KESIT_EXTENSION, load_project, save_project
+from kesit.paths import resource_root
 from kesit.app.demo import is_demo_available, load_demo_project
 from kesit.app.pipeline import load_inventory, run_pipeline
 from kesit.app.project_state import ProjectState, SavedView
@@ -31,7 +32,7 @@ _REGEN_DEBOUNCE_MS = 300
 class MainWindow(ctk.CTk):
     def __init__(self, root_dir: Path | None = None, auto_demo: bool = False):
         super().__init__()
-        self.root_dir = root_dir or Path(__file__).resolve().parents[3]
+        self.root_dir = root_dir or resource_root()
         self.auto_demo = auto_demo
         self.project = ProjectState()
         self._result_queue: queue.Queue = queue.Queue()

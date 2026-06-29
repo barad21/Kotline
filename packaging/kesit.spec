@@ -15,6 +15,10 @@ a = Analysis(
         (str(root / 'config'), 'config'),
         (str(root / 'assets' / 'branding'), 'assets/branding'),
         (str(root / 'src' / 'kesit' / 'locales'), 'locales'),
+        (
+            str(root / 'sample-files' / 'dxf' / 'dxf-parser' / 'floorplan.dxf'),
+            'sample-files/dxf/dxf-parser',
+        ),
         *ctk_datas,
     ],
     hiddenimports=[

@@ -39,13 +39,13 @@ def main() -> None:
         print(i18n.t("cli.ctk_install"), file=sys.stderr)
         raise SystemExit(1) from exc
 
+    from kesit.paths import resource_root
     from kesit.ui.main_window import MainWindow
 
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
 
-    root_dir = Path(__file__).resolve().parents[3]
-    app = MainWindow(root_dir=root_dir, auto_demo=args.demo and project_path is None)
+    app = MainWindow(root_dir=resource_root(), auto_demo=args.demo and project_path is None)
     if project_path is not None:
         app.after(200, lambda: app.load_project_into_ui(project_path.resolve()))
     app.mainloop()
